@@ -9,9 +9,11 @@ export default async function startProdBot() {
   const webhookURL = `${process.env.SERVER_URL}/api/webhook`;
 
   try {
-    await bot.telegram.setWebhook(webhookURL, null, 8443);
+    await bot.telegram.setWebhook(webhookURL);
     console.log("✅ Webhook set to:", webhookURL);
+    res.status(200).send(`✅ Webhook set to: ${webhookURL}`);
   } catch (err) {
     console.error("❌ Failed to set webhook:", err);
+    res.status(500).send("❌ Failed to set webhook");
   }
 }
