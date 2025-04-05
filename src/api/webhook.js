@@ -12,7 +12,11 @@ export default async function handler(req, res) {
       return res.status(200).send("OK");
     } catch (error) {
       console.error("❌ Webhook Error:", error);
-      return res.status(500).send("Error handling update");
+      return res.status(500).json({
+        error: true,
+        message: "❌ Webhook Error",
+        details: error.message,
+      });
     }
   } else {
     return res.status(405).send("Method Not Allowed");
