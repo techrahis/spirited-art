@@ -9,7 +9,8 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "vercel-build": "yarn install"
   },
   "dependencies": {
     "@google/genai": "^0.7.0",
