@@ -1,23 +1,32 @@
 import { Telegraf } from "telegraf";
 import setupCommands from "../bot/commands.js";
+import connectDatabase from "../database/database.js";
 
 // Initialize bot once
 const bot = new Telegraf(process.env.BOT_TOKEN);
 setupCommands(bot);
 
+let isDbConnected = false;
+
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
+      if (!isDbConnected) {
+        await connectDatabase();
+        isDbConnected = true;
+      }
+
       const chunks = [];
       for await (const chunk of req) {
         chunks.push(chunk);
       }
+
       const rawBody = Buffer.concat(chunks).toString("utf8");
       const update = JSON.parse(rawBody);
 
       console.log("📨 Webhook received:", update);
-
       await bot.handleUpdate(update);
+
       return res.status(200).send("OK");
     } catch (error) {
       console.error("❌ Webhook Error:", error);

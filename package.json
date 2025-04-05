@@ -10,7 +10,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "vercel-build": "yarn install"
+    "set-webhook": "node scripts/setWebhook.js",
+    "vercel-build": "npm run set-webhook"
   },
   "dependencies": {
     "@google/genai": "^0.7.0",
