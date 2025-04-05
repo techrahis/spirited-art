@@ -1,18 +1,14 @@
-// src/bot/bot.js
 import { Telegraf } from "telegraf";
 import setupCommands from "./commands.js";
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-export default async function startProdBot(app) {
+export default async function startProdBot() {
   setupCommands(bot);
 
-  app.post(`/webhook/${bot.secretPathComponent()}`, (req, res) => {
-    bot.handleUpdate(req.body, res);
-  });
+  const webhookPath = `/api/webhook`;
+  const fullWebhookUrl = `${process.env.VERCEL_URL}${webhookPath}`;
 
-  await bot.telegram.setWebhook(
-    `${process.env.VERCEL_URL}/webhook/${bot.secretPathComponent()}`
-  );
-  console.log("🤖 Webhook set and bot is ready!");
+  await bot.telegram.setWebhook(fullWebhookUrl);
+  console.log(`🚀 Webhook set to ${fullWebhookUrl}`);
 }
