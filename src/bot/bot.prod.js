@@ -6,9 +6,8 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 export default async function startProdBot() {
   setupCommands(bot);
 
-  const webhookPath = `/api/webhook`;
-  const fullWebhookUrl = `${process.env.VERCEL_URL}${webhookPath}`;
+  const webhookURL = `${process.env.VERCEL_URL}/api/webhook`;
+  await bot.telegram.setWebhook(webhookURL);
 
-  await bot.telegram.setWebhook(fullWebhookUrl);
-  console.log(`🚀 Webhook set to ${fullWebhookUrl}`);
+  console.log("✅ Webhook set to:", webhookURL);
 }
