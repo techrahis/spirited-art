@@ -11,6 +11,7 @@ async function main() {
       console.log("🚀 Starting bot in development mode...");
       await startDevBot();
     }
+
     if (process.env.NODE_ENV === "production") {
       console.log("🚀 Starting bot in production mode...");
       await startProdBot();
