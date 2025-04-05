@@ -3,7 +3,7 @@ import setupCommands from "./commands.js";
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-export default async function startBot() {
+export default async function startDevBot() {
   setupCommands(bot);
   bot.launch();
   console.log("🤖 SPIRITED ART BOT is running...");
