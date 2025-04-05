@@ -1,7 +1,7 @@
 import { Telegraf } from "telegraf";
 import setupCommands from "../bot/commands.js";
 
-// Initialize the bot once
+// Initialize bot once
 const bot = new Telegraf(process.env.BOT_TOKEN);
 setupCommands(bot);
 
