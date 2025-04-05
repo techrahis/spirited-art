@@ -1,7 +1,9 @@
 import "dotenv/config";
+import pg from "pg";
 
 export const development = {
   dialect: "postgres",
+  dialectModule: pg,
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   username: process.env.DB_USER,
@@ -22,6 +24,7 @@ export const development = {
 
 export const test = {
   dialect: "postgres",
+  dialectModule: pg,
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   username: process.env.DB_USER,
@@ -42,6 +45,7 @@ export const test = {
 
 export const production = {
   dialect: "postgres",
+  dialectModule: pg,
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   username: process.env.DB_USER,
