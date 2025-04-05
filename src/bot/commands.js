@@ -24,4 +24,5 @@ export default function setupCommands(bot) {
   bot.on("photo", imageHandler);
   bot.action("ABOUT", aboutHandler);
   bot.action("GENERATED", generatedHandler);
+  bot.on("text", startHandler);
 }
