@@ -1,5 +1,5 @@
 import redis from "../../config/redis.js";
-import ghibliService from "../../services/ghibliService.js";
+import imageService from "../../services/imageService.js";
 import { GeneratedImage } from "../../database/models/index.js";
 
 async function imageHandler(ctx) {
@@ -24,22 +24,19 @@ async function imageHandler(ctx) {
     });
   }
 
-  if (userSelection === "GHIBLI") {
-    const ghibliResponse = await ghibliService(ctx);
-    if (ghibliResponse) {
-      await storeImageCount(ctx); // Store count of generated images in Redis
-      await storeImage(ctx, ghibliResponse, userSelection); // Store user given images and generated images in database
-      ctx.replyWithPhoto(ghibliResponse.generatedImage, {
-        caption: "✨ Your GHIBLI artwork!",
-      });
-    } else {
-      ctx.reply("❌ Something went wrong on our end. Please try again later.", {
-        parse_mode: "Markdown",
-      });
+  const imageResponse = await imageService(ctx, userSelection);
+    if (imageResponse) {
+        await storeImageCount(ctx); // Store count of generated images in Redis
+        await storeImage(ctx, imageResponse, userSelection); // Store user given images and generated images in database
+        ctx.replyWithPhoto(imageResponse.generatedImage, {
+            caption: "✨ Your artwork!",
+        });
     }
-  } else {
-    ctx.reply("❌ Currently, only Ghibli style is supported.");
-  }
+    else {
+        ctx.reply("❌ Something went wrong on our end. Please try again later.", {
+            parse_mode: "Markdown",
+        });
+    }
 }
 
 // Function to store the count of generated images in Redis

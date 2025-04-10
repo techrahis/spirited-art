@@ -3,6 +3,7 @@ import imageHandler from "./handlers/imageHandler.js";
 import styleHandler from "./handlers/styleHandler.js";
 import aboutHandler from "./handlers/aboutHandler.js";
 import generatedHandler from "./handlers/generatedHandler.js";
+import galleryPaginationHandler from "./handlers/galleryPaginationHandler.js";
 
 export default function setupCommands(bot) {
   bot.start(startHandler);
@@ -25,4 +26,5 @@ export default function setupCommands(bot) {
   bot.action("ABOUT", aboutHandler);
   bot.action("GENERATED", generatedHandler);
   bot.on("text", startHandler);
+  bot.action(/gallery:\d+/, galleryPaginationHandler);
 }
